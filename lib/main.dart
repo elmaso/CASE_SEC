@@ -1,6 +1,7 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
+import 'package:des_case_app/screens/LoginScreen.dart';
 
 void main() => runApp(MyApp());
 
@@ -8,6 +9,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       // Firebase Analytics
       navigatorObservers: [
         FirebaseAnalyticsObserver(analytics: FirebaseAnalytics()),
@@ -16,7 +18,7 @@ class MyApp extends StatelessWidget {
       // Named Routes
       routes: {
         '/': (context) => LoginScreen(),
-        '/perfil': (context) => PerfilScreen(),
+       // '/perfil': (context) => PerfilScreen(),
         //'/case': (context) => CaseScreen(),
         //'/solicitud': (context) => SolicitudScreen(),
         //',/detalle': (context) => DetalleScreenn(),
@@ -28,7 +30,7 @@ class MyApp extends StatelessWidget {
         bottomAppBarTheme: BottomAppBarTheme(
           color: Colors.black87,
         ),
-        brightness: Brightness.dark,
+        brightness: Brightness.light,
         textTheme: TextTheme(
           body1: TextStyle(fontSize: 18),
           body2: TextStyle(fontSize: 16),
