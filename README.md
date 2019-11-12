@@ -2,15 +2,14 @@
 
 Aplicacion solicitud de prestamos CASE SEC
 
-## Getting Started
+## APP SOCIOS SEC CASE
 
-This project is a starting point for a Flutter application.
+Este proyecto utiliza flutter para llevar un sistmea de caja de ahorro.
 
-A few resources to get you started if this is your first Flutter project:
+*Fase1* Manejo de login via Google, Facebook y numero Telefonico:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+![login screen](assets/art_git/login.png)
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+
+![Pantallas Socio](assets/art_git/Socio%20–OK%20–%20con%20presto.png)
