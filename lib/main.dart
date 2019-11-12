@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
 
       // Theme
       theme: ThemeData(
-        fontFamily: 'Nunito',
+        fontFamily: 'Nunitos',
         bottomAppBarTheme: BottomAppBarTheme(
           color: Colors.black87,
         ),
