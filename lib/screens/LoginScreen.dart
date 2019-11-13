@@ -37,7 +37,7 @@ class LoginScreenState extends State<LoginScreen> {
             Column(
               children: <Widget>[
                 Image.asset(seciniciodos),
-                SizedBox(height: 40.0, width: 50.0,),
+                SizedBox(height: 50.0, width: 50.0,),
               ],
             ),
             SizedBox(height: 3.0),
