@@ -18,7 +18,7 @@ class LoginScreenState extends State<LoginScreen> {
     auth.getUser.then(
           (user) {
         if (user != null) {
-          Navigator.pushReplacementNamed(context, '/topics');
+          Navigator.pushReplacementNamed(context, '/Prestamos');
         }
       },
     );
@@ -82,7 +82,7 @@ class LoginButton extends StatelessWidget {
         onPressed: () async {
           var user = await loginMethod();
           if (user != null) {
-            Navigator.pushReplacementNamed(context, '/topics');
+            Navigator.pushReplacementNamed(context, '/Validacion');
           }
         },
         label: Expanded(

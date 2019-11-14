@@ -1,6 +1,7 @@
 import 'services.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:des_case_app/services/models.dart';
+import 'package:des_case_app/services/db.dart';
 
 
 /// Static global state. Immutable services that do not care about build context.

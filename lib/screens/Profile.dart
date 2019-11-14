@@ -4,13 +4,15 @@ import '../services/services.dart';
 import '../shared/shared.dart';
 import 'package:provider/provider.dart';
 import 'package:des_case_app/services/auth.dart';
+import 'package:des_case_app/shared/loader.dart';
+import 'package:des_case_app/services/models.dart';
 
 class ProfileScreen extends StatelessWidget {
   final AuthService auth = AuthService();
 
   @override
   Widget build(BuildContext context) {
-    Report report = Provider.of<Report>(context);
+    Socio report = Provider.of<Socio>(context);
     FirebaseUser user = Provider.of<FirebaseUser>(context);
 
     if (user != null) {
