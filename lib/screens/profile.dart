@@ -1,11 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import '../services/services.dart';
-import '../shared/shared.dart';
-import 'package:provider/provider.dart';
 import 'package:des_case_app/services/auth.dart';
-import 'package:des_case_app/shared/loader.dart';
 import 'package:des_case_app/services/models.dart';
+import 'package:des_case_app/shared/loader.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatelessWidget {
   final AuthService auth = AuthService();
@@ -16,7 +14,6 @@ class ProfileScreen extends StatelessWidget {
     FirebaseUser user = Provider.of<FirebaseUser>(context);
 
     if (user != null) {
-
       return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.teal,
@@ -39,7 +36,8 @@ class ProfileScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-              Text(user.email ?? '', style: Theme.of(context).textTheme.headline),
+              Text(user.email ?? '',
+                  style: Theme.of(context).textTheme.headline),
               Spacer(),
               Spacer(),
               FlatButton(
@@ -47,7 +45,8 @@ class ProfileScreen extends StatelessWidget {
                   color: Colors.red,
                   onPressed: () async {
                     await auth.signOut();
-                    Navigator.of(context).pushNamedAndRemoveUntil('/', (route) => false);
+                    Navigator.of(context)
+                        .pushNamedAndRemoveUntil('/', (route) => false);
                   }),
               Spacer()
             ],
@@ -58,5 +57,4 @@ class ProfileScreen extends StatelessWidget {
       return LoadingScreen();
     }
   }
-
 }

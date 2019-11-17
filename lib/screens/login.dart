@@ -1,9 +1,8 @@
-import 'package:des_case_app/resources/images.dart';
+import 'package:des_case_app/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../shared/shared.dart';
-import '../services/services.dart';
-import 'package:des_case_app/services/auth.dart';
+
+import '../constants/constants.dart';
 
 class LoginScreen extends StatefulWidget {
   createState() => LoginScreenState();
@@ -16,7 +15,7 @@ class LoginScreenState extends State<LoginScreen> {
   void initState() {
     super.initState();
     auth.getUser.then(
-          (user) {
+      (user) {
         if (user != null) {
           Navigator.pushReplacementNamed(context, '/Prestamos');
         }
@@ -37,7 +36,10 @@ class LoginScreenState extends State<LoginScreen> {
             Column(
               children: <Widget>[
                 Image.asset(seciniciodos),
-                SizedBox(height: 50.0, width: 50.0,),
+                SizedBox(
+                  height: 50.0,
+                  width: 50.0,
+                ),
               ],
             ),
             SizedBox(height: 3.0),

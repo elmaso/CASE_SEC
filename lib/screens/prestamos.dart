@@ -1,15 +1,11 @@
 import 'package:des_case_app/services/models.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import '../services/services.dart';
 import '../shared/shared.dart';
-import '../screens/screens.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:des_case_app/services/globals.dart';
-import 'package:des_case_app/shared/loader.dart';
-import 'package:des_case_app/services/models.dart';
 
-class TopicsScreen extends StatelessWidget {
-
+class PrestamosScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -110,7 +106,7 @@ class TopicScreen extends StatelessWidget {
         Text(
           topic.nombres,
           style:
-          TextStyle(height: 2, fontSize: 20, fontWeight: FontWeight.bold),
+              TextStyle(height: 2, fontSize: 20, fontWeight: FontWeight.bold),
         ),
       ]),
     );

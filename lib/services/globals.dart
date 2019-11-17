@@ -1,8 +1,6 @@
-import 'services.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:des_case_app/services/models.dart';
 import 'package:des_case_app/services/db.dart';
-
+import 'package:des_case_app/services/models.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 
 /// Static global state. Immutable services that do not care about build context.
 class Global {
@@ -19,8 +17,8 @@ class Global {
   };
 
   // Firestore References for Writes
-  static final Collection<Empleado> empleadoRef = Collection<Empleado>(path: 'Empleados');
-  static final UserData<Socio> socioRef = UserData<Socio>(collection: 'SocioCase');
-
-
+  static final Collection<Empleado> empleadoRef =
+      Collection<Empleado>(path: 'Empleados');
+  static final UserData<Socio> socioRef =
+      UserData<Socio>(collection: 'SocioCase');
 }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:des_case_app/resources/images.dart';
 
-
+import '../constants/constants.dart';
 
 class ValidacionUsuario extends StatefulWidget {
   @override
@@ -31,9 +30,7 @@ class _ValidacionUsuarioState extends State<ValidacionUsuario> {
               cursorRadius: Radius.circular(14.0),
               cursorWidth: 16.0,
               decoration: InputDecoration(
-                  labelText: '# de Empleado',
-                  border: OutlineInputBorder()
-              ),
+                  labelText: '# de Empleado', border: OutlineInputBorder()),
             ),
             SizedBox(height: 28.0),
             TextField(
@@ -41,9 +38,7 @@ class _ValidacionUsuarioState extends State<ValidacionUsuario> {
               cursorRadius: Radius.circular(14.0),
               cursorWidth: 16.0,
               decoration: InputDecoration(
-                  labelText: '# de SS',
-                  border: OutlineInputBorder()
-              ),
+                  labelText: '# de SS', border: OutlineInputBorder()),
             ),
             SizedBox(height: 20.0),
             FlatButton(
@@ -55,7 +50,8 @@ class _ValidacionUsuarioState extends State<ValidacionUsuario> {
             Column(
               children: <Widget>[
                 SizedBox(height: 30.0),
-                Text('CAET',
+                Text(
+                  'CAET',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 40),
                 ),
               ],

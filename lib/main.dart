@@ -1,10 +1,8 @@
-import 'package:des_case_app/screens/Prestamos.dart';
-import 'package:des_case_app/screens/Profile.dart';
-import 'package:des_case_app/screens/Validacion.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
-import 'package:des_case_app/screens/LoginScreen.dart';
+
+import 'screens/screens.dart';
 
 void main() => runApp(MyApp());
 
@@ -21,8 +19,8 @@ class MyApp extends StatelessWidget {
       // Named Routes
       routes: {
         '/': (context) => LoginScreen(),
-        '/Validacion': (context) => ValidacionUsuario(),
-        //'/case': (context) => CaseScreen(),
+        '/validacion': (context) => ValidacionUsuario(),
+        '/prestamos': (context) => PrestamosScreen(),
         //'/solicitud': (context) => SolicitudScreen(),
         //',/detalle': (context) => DetalleScreenn(),
       },
