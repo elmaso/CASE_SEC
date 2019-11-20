@@ -33,6 +33,12 @@ class AuthService {
     }
   }
 
+  //GET UID
+
+  Future<String> getCurrentUID() async {
+    return (await _auth.currentUser()).uid;
+  }
+
   Future<FirebaseUser> anonLogin() async {
     FirebaseUser user = (await _auth.signInAnonymously()).user;
     updateUserData(user);

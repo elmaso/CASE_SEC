@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:des_case_app/resources/images.dart';
+import 'package:des_case_app/constants//images.dart';
 
 
 
@@ -19,12 +19,13 @@ class _ValidacionUsuarioState extends State<ValidacionUsuario> {
             SizedBox(height: 10.0),
             Column(
               children: <Widget>[
-                Image.asset(seclogo),
-                SizedBox(height: 100.0),
-                Text('Validación Socios Activos'),
+                Image.asset(seciniciodos),
+                SizedBox(height: 10.0),
+                Text('Validación Socios Activos',
+                  style: TextStyle(fontWeight: FontWeight.bold),),
               ],
             ),
-            SizedBox(height: 30.0),
+            SizedBox(height: 10.0),
             //color
             TextField(
               cursorColor: Colors.teal,
