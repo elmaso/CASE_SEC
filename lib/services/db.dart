@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:des_case_app/services/models.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:async';
 import 'package:rxdart/rxdart.dart';
@@ -88,5 +89,30 @@ class UserData<T> {
     Document<T> ref = Document(path:  '$collection/${user.uid}');
     return ref.upsert(data);
   }
+
+
+  }
+
+class DatabaseService {
+  final Firestore _db = Firestore.instance;
+
+  Future<Empleado> getEmpleaado(empleadoId) {
+    return _db.collection('Empleados')
+        .document(empleadoId)
+        .get()
+        .then((snap) => Empleado.fromMap(snap.data));
+  }
+}
+
+loadData() async {
+
+  var empleado = Document<Empleado>(path: 'Empleados');
+  empleado.streamData();
+  empleado.getData();
+
+  empleado.upsert({ 'hello': 'world'});
+
+  var empleados = Collection<Empleado>(path: 'Empleados');
+  empleados.streamData();
 
 }
