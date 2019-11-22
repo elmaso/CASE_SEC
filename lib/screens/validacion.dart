@@ -15,6 +15,7 @@ class ValidacionUsuarioState with ChangeNotifier {
   String _ss;
   int _intentos = 0;
 
+
   final PageController controller = PageController();
 
   get validado => _validado;
@@ -58,6 +59,7 @@ class ValidacionUsuario extends StatelessWidget {
   ValidacionUsuario({this.empleadoId});
   final String empleadoId;
   final numempleado = TextEditingController();
+
   @override
 
   Widget build(BuildContext context) {
@@ -127,7 +129,7 @@ class ValidacionUsuario extends StatelessWidget {
                       color: Colors.teal,
                       child: Text('VALIDAR'),
                       onPressed: () {
-                        if (numempleado != idemp) {
+                        if (numempleado != state.idemp) {
                           Navigator.pushReplacementNamed(context, '/prestamos');
                         } else {
                           Text('Primer intento fallido');
@@ -142,5 +144,4 @@ class ValidacionUsuario extends StatelessWidget {
           ),
     );
           }
-          var idemp= db.collection('Empleados').doc('id');
         }
