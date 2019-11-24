@@ -2,9 +2,11 @@ import 'package:des_case_app/screens/perfil.dart';
 import 'package:des_case_app/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 import '../services/services.dart';
+import '../shared/shared.dart';
 
 class PerfilState with ChangeNotifier {
   int _validado = 0;
@@ -47,7 +49,7 @@ class ProfileScreen extends StatelessWidget {
     return ChangeNotifierProvider(
       builder: (_) => PerfilState(),
       child: FutureBuilder(
-        future: Document<Empleado>(path: 'Empleados/25140306').getData(),
+        future: Document<Empleado>(path: 'Empleados/$empleado').getData(),
         builder: (BuildContext context, AsyncSnapshot snap) {
           // var state = Provider.of<Empleado>(context);
 
@@ -57,7 +59,7 @@ class ProfileScreen extends StatelessWidget {
             Empleado empleado = snap.data;
             return Scaffold(
               appBar: AppBar(
-                title: Text(empleado.id),
+                title: Text(empleado.idEmp),
               ),
               // body: MiPerfil(),
             );
@@ -106,11 +108,18 @@ class MiPerfil extends StatelessWidget {
             ),
             Spacer(),
             Text(
-              state.id,
+              state.idEmp,
               style: Theme.of(context).textTheme.body1,
             ),
             Spacer(),
             Spacer(),
+            LoginButton(
+              text: 'logout',
+              icon: FontAwesomeIcons.signOutAlt,
+              color: Colors.black45,
+              redirection: '/',
+              //loginMethod: auth.signOut(),
+            ),
             FlatButton(
                 child: Text('logout'),
                 color: Colors.red,

@@ -1,5 +1,4 @@
 import 'package:des_case_app/constants//images.dart';
-import 'package:des_case_app/screens/login.dart';
 import 'package:des_case_app/services/db.dart';
 import 'package:des_case_app/services/models.dart';
 import 'package:flutter/material.dart';
@@ -7,32 +6,16 @@ import 'package:provider/provider.dart';
 
 class ValidacionUsuarioState with ChangeNotifier {
   int _validado = 0;
-  String _idemp = '25140306';
-  String _ss;
   int _intentos = 0;
 
   final PageController controller = PageController();
 
   get validado => _validado;
 
-  get idemp => _idemp;
-
-  get ss => _ss;
-
   get intentos => _intentos;
 
   set validado(int newValue) {
     _validado = newValue;
-    notifyListeners();
-  }
-
-  set idemp(String newValue) {
-    _idemp = newValue;
-    notifyListeners();
-  }
-
-  set ss(String newValue) {
-    _ss = newValue;
     notifyListeners();
   }
 
@@ -51,6 +34,7 @@ class ValidacionUsuarioState with ChangeNotifier {
 
 class ValidacionUsuario extends StatelessWidget {
   ValidacionUsuario({this.empleadoId});
+
   final String empleadoId;
   final numempleado = TextEditingController();
 
@@ -64,7 +48,55 @@ class ValidacionUsuario extends StatelessWidget {
             var state = Provider.of<ValidacionUsuarioState>(context);
 
             if (!snap.hasData || snap.hasError) {
-              return LoginScreen();
+              return SafeArea(
+                  child: ListView(
+                      padding: EdgeInsets.symmetric(horizontal: 24.0),
+                      children: <Widget>[
+                    SizedBox(height: 10.0),
+                    Column(
+                      children: <Widget>[
+                        Image.asset(seciniciodos),
+                        SizedBox(height: 10.0),
+                        Text(
+                          'Validación Socios Activos',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 10.0),
+                    //color
+                    TextField(
+                      controller: numempleado,
+                      cursorColor: Colors.teal,
+                      cursorRadius: Radius.circular(14.0),
+                      cursorWidth: 16.0,
+                      decoration: InputDecoration(
+                          labelText: '# de Empleado',
+                          border: OutlineInputBorder()),
+                    ),
+                    SizedBox(height: 28.0),
+                    PageView.builder(
+                      controller: state.controller,
+                    ),
+                    TextField(
+                      controller: numempleado,
+                      cursorColor: Colors.teal,
+                      cursorRadius: Radius.circular(14.0),
+                      cursorWidth: 16.0,
+                      decoration: InputDecoration(
+                          labelText: '# de Empleado',
+                          border: OutlineInputBorder()),
+                    ),
+                    SizedBox(height: 28.0),
+                    TextField(
+                      cursorColor: Colors.teal,
+                      cursorRadius: Radius.circular(14.0),
+                      cursorWidth: 16.0,
+                      decoration: InputDecoration(
+                          labelText: '# de SS', border: OutlineInputBorder()),
+                    ),
+                    SizedBox(height: 20.0),
+                  ]));
             } else {
               Empleado empleado = snap.data;
               return SafeArea(
@@ -115,17 +147,6 @@ class ValidacionUsuario extends StatelessWidget {
                           labelText: '# de SS', border: OutlineInputBorder()),
                     ),
                     SizedBox(height: 20.0),
-                    FlatButton(
-                        textColor: Colors.white,
-                        color: Colors.teal,
-                        child: Text('VALIDAR'),
-                        onPressed: () {
-                          if (numempleado != state.idemp) {
-                            Navigator.pushReplacementNamed(context, '/validar');
-                          } else {
-                            Text('Primer intento fallido');
-                          }
-                        }),
                   ],
                 ),
               );

@@ -7,7 +7,7 @@ class Empleado {
   String materno;
   String nivel;
   String nombres;
-  String id;
+  String idEmp;
   String paterno;
   String num_ss;
 
@@ -15,7 +15,7 @@ class Empleado {
       {this.materno,
       this.nivel,
       this.nombres,
-      this.id,
+      this.idEmp,
       this.paterno,
       this.num_ss});
 
@@ -24,7 +24,7 @@ class Empleado {
       materno: data['materno'] ?? '',
       nivel: data['nivel'] ?? '',
       nombres: data['nombres'] ?? '',
-      id: data['id'] ?? '',
+      idEmp: data['id'] ?? '',
       paterno: data['paterno'] ?? '',
       num_ss: data['num_ss'] ?? '',
     );

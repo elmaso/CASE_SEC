@@ -1,3 +1,7 @@
+/// Entrada del app y controla las rutas separando [sreens] diseno de
+/// [services] logica o bases de datos
+/// La primera vez que entras te muestra login
+
 import 'package:des_case_app/screens/profile.dart';
 import 'package:des_case_app/screens/validacion2.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -14,6 +18,7 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    // Permite manejar datos y estados en toda la aplicacion
     return MultiProvider(
       providers: [
         StreamProvider<Socio>.value(value: Global.socioRef.documentStream),
@@ -29,12 +34,12 @@ class MyApp extends StatelessWidget {
         // Named Routes
         routes: {
           '/': (context) => LoginScreen(),
-          '/validacion': (context) => ValidacionUsuario(),
+          //'/validacion': (context) => ValidacionUsuario(),
           //'/prestamos': (context) => PrestamosScreen(),
           //'/solicitud': (context) => SolicitudScreen(),
           //',/detalle': (context) => DetalleScreenn(),
           '/perfil': (context) => ProfileScreen(),
-          '/perfil2': (context) => ValidacionScreen(),
+          '/validacion': (context) => ValidacionScreen(),
         },
 
         // Theme

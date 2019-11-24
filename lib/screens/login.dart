@@ -1,8 +1,13 @@
+/// Pantalla que permite a los usuarios validarse
+///
+///
+
 import 'package:des_case_app/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../constants/constants.dart';
+import '../shared/shared.dart';
 
 class LoginScreen extends StatefulWidget {
   createState() => LoginScreenState();
@@ -14,15 +19,17 @@ class LoginScreenState extends State<LoginScreen> {
   @override
   void initState() {
     super.initState();
+    // Revisamos si ya tenemos sesion para evitar login
     auth.getUser.then(
       (user) {
         if (user != null) {
-          Navigator.pushReplacementNamed(context, '/perfil');
+          Navigator.pushReplacementNamed(context, '/valiacion');
         }
       },
     );
   }
 
+  //TODO Mejorar la image y diseno general, cambiando la fotos por elementos nativos
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,7 +51,7 @@ class LoginScreenState extends State<LoginScreen> {
             ),
             SizedBox(height: 3.0),
             Text(
-              'Login to Start',
+              'Inicia sesión para comenzar',
               style: Theme.of(context).textTheme.headline,
               textAlign: TextAlign.center,
             ),
@@ -53,42 +60,10 @@ class LoginScreenState extends State<LoginScreen> {
               text: 'LOGIN CON GOOGLE',
               icon: FontAwesomeIcons.google,
               color: Colors.black45,
+              redirection: '/validacion',
               loginMethod: auth.googleSignIn,
             ),
-            LoginButton(text: 'Continue as Guest', loginMethod: auth.anonLogin)
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class LoginButton extends StatelessWidget {
-  final Color color;
-  final IconData icon;
-  final String text;
-  final Function loginMethod;
-
-  const LoginButton(
-      {Key key, this.text, this.icon, this.color, this.loginMethod})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(bottom: 10),
-      child: FlatButton.icon(
-        padding: EdgeInsets.all(30),
-        icon: Icon(icon, color: Colors.white),
-        color: color,
-        onPressed: () async {
-          var user = await loginMethod();
-          if (user != null) {
-            Navigator.pushReplacementNamed(context, '/perfil');
-          }
-        },
-        label: Expanded(
-          child: Text('$text', textAlign: TextAlign.center),
         ),
       ),
     );
