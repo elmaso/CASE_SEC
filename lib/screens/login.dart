@@ -1,6 +1,7 @@
 import 'package:des_case_app/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import '../constants/constants.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -16,7 +17,7 @@ class LoginScreenState extends State<LoginScreen> {
     auth.getUser.then(
       (user) {
         if (user != null) {
-          Navigator.pushReplacementNamed(context, '/');
+          Navigator.pushReplacementNamed(context, '/perfil');
         }
       },
     );
@@ -49,7 +50,7 @@ class LoginScreenState extends State<LoginScreen> {
             ),
             SizedBox(height: 40.0),
             LoginButton(
-              text: 'LOGIN WITH GOOGLE',
+              text: 'LOGIN CON GOOGLE',
               icon: FontAwesomeIcons.google,
               color: Colors.black45,
               loginMethod: auth.googleSignIn,
@@ -83,7 +84,7 @@ class LoginButton extends StatelessWidget {
         onPressed: () async {
           var user = await loginMethod();
           if (user != null) {
-            Navigator.pushReplacementNamed(context, '/validacion');
+            Navigator.pushReplacementNamed(context, '/perfil');
           }
         },
         label: Expanded(

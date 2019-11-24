@@ -1,18 +1,17 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:des_case_app/services/models.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:async';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:rxdart/rxdart.dart';
+
 import './globals.dart';
-
-
 
 class Document<T> {
   final Firestore _db = Firestore.instance;
   final String path;
   DocumentReference ref;
 
-  Document({ this.path }) {
+  Document({this.path}) {
     ref = _db.document(path);
   }
 
@@ -27,7 +26,6 @@ class Document<T> {
   Future<void> upsert(Map data) {
     return ref.setData(Map<String, dynamic>.from(data), merge: true);
   }
-
 }
 
 class Collection<T> {
@@ -35,33 +33,31 @@ class Collection<T> {
   final String path;
   CollectionReference ref;
 
-  Collection({ this.path }) {
+  Collection({this.path}) {
     ref = _db.collection(path);
   }
 
   Future<List<T>> getData() async {
     var snapshots = await ref.getDocuments();
-    return snapshots.documents.map((doc) => Global.models[T](doc.data) as T ).toList();
+    return snapshots.documents
+        .map((doc) => Global.models[T](doc.data) as T)
+        .toList();
   }
 
   Stream<List<T>> streamData() {
-    return ref.snapshots().map((list) => list.documents.map((doc) => Global.models[T](doc.data) as T) );
+    return ref.snapshots().map(
+        (list) => list.documents.map((doc) => Global.models[T](doc.data) as T));
   }
-
-
 }
-
 
 class UserData<T> {
   final Firestore _db = Firestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final String collection;
 
-  UserData({ this.collection });
-
+  UserData({this.collection});
 
   Stream<T> get documentStream {
-
     return Observable(_auth.onAuthStateChanged).switchMap((user) {
       if (user != null) {
         Document<T> doc = Document<T>(path: '$collection/${user.uid}');
@@ -69,7 +65,7 @@ class UserData<T> {
       } else {
         return Observable<T>.just(null);
       }
-    }); //.shareReplay(maxSize: 1).doOnData((d) => print('777 $d'));// as Stream<T>;
+    });
   }
 
   Future<T> getDocument() async {
@@ -81,38 +77,11 @@ class UserData<T> {
     } else {
       return null;
     }
-
   }
 
   Future<void> upsert(Map data) async {
     FirebaseUser user = await _auth.currentUser();
-    Document<T> ref = Document(path:  '$collection/${user.uid}');
+    Document<T> ref = Document(path: '$collection/${user.uid}');
     return ref.upsert(data);
   }
-
-
-  }
-
-class DatabaseService {
-  final Firestore _db = Firestore.instance;
-
-  Future<Empleado> getEmpleaado(empleadoId) {
-    return _db.collection('Empleados')
-        .document(empleadoId)
-        .get()
-        .then((snap) => Empleado.fromMap(snap.data));
-  }
-}
-
-loadData() async {
-
-  var empleado = Document<Empleado>(path: 'Empleados');
-  empleado.streamData();
-  empleado.getData();
-
-  empleado.upsert({ 'hello': 'world'});
-
-  var empleados = Collection<Empleado>(path: 'Empleados');
-  empleados.streamData();
-
 }
