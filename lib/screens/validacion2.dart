@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import '../services/services.dart';
@@ -29,6 +30,45 @@ class ValidacionState with ChangeNotifier {
   set ssEmp(String newValue) {
     _ssEmp = newValue;
     notifyListeners();
+  }
+}
+
+abstract class StringValidator {
+  bool isValid(String value);
+}
+class RegexValidator implements StringValidator {
+  RegexValidator({this.regexSource});
+  final String regexSource;
+
+  bool isValid(String value) {
+    try {
+      final number = RegExp(regexSource);
+      final matches = number.allMatches(value);
+      for (Match match in matches) {
+        if (match.start == 0 && match.end == value.length) {
+          return true;
+        }
+      }
+      return false;
+    } catch (e) {
+      assert(false, e.toString());
+      return true;
+    }
+  }
+}
+
+class ValidatorInputFormatter implements TextInputFormatter {
+  ValidatorInputFormatter({this.editingValidator});
+  final StringValidator editingValidator;
+
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
+    final oldValueValid = editingValidator.isValid(oldValue.text);
+    final newValueValid = editingValidator.isValid(newValue.text);
+    if (oldValueValid && !newValueValid) {
+      return oldValue;
+    }
+    return newValue;
   }
 }
 
@@ -138,7 +178,7 @@ class ValidacionScreen extends StatelessWidget {
                         children: <Widget>[
                           FlatButton.icon(
                             onPressed: null,
-                            label: Text('Valido'),
+                            label: Text('Validado'),
                             icon: Icon(Icons.poll),
                             color: Colors.green,
                           )
