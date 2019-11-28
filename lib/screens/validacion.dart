@@ -43,7 +43,7 @@ class ValidacionUsuario extends StatelessWidget {
     return ChangeNotifierProvider(
       builder: (_) => ValidacionUsuarioState(),
       child: FutureBuilder(
-          future: Document<Empleado>(path: 'Empleados/$empleadoId').getData(),
+          future: Document<Empleado>(path: 'Empleados/2511234').getData(),
           builder: (BuildContext context, AsyncSnapshot snap) {
             var state = Provider.of<ValidacionUsuarioState>(context);
 

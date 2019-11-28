@@ -18,6 +18,23 @@ import 'services/services.dart';
 
 void main() => runApp(MyApp());
 
+class DecimalNumberEditingRegexValidator extends RegexValidator {
+  DecimalNumberEditingRegexValidator()
+      : super(regexSource: "^\$|^(0|([1-9][0-9]{0,3}))(\\.[0-9]{0,2})?\$");
+}
+
+class DecimalNumberSubmitValidator implements StringValidator {
+  @override
+  bool isValid(String value) {
+    try {
+      final number = double.parse(value);
+      return number > 0.0;
+    } catch (e) {
+      return false;
+    }
+  }
+}
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
