@@ -30,12 +30,13 @@ class ValidacionState with ChangeNotifier {
     _ssEmp = newValue;
     notifyListeners();
   }
+  //void valida()
 }
 
 class ValidacionScreen extends StatelessWidget {
   /// Permite llamar a esta clase con la variable del empleado
-  ValidacionScreen({this.idEmp});
-  final String idEmp;
+  ValidacionScreen({this.idEmp, this.ssEmp});
+  String idEmp, ssEmp;
 
   /// Pasa el usuario Friebase actual
   final AuthService auth = AuthService();
@@ -98,6 +99,7 @@ class ValidacionScreen extends StatelessWidget {
                       ),
                       Spacer(),
                       FlatButton(
+                        onPressed: () => state.idEmp = '25140306',
                         textColor: Colors.white,
                         color: Colors.teal,
                         child: Text('VALIDAR'),
@@ -154,7 +156,6 @@ class ValidacionScreen extends StatelessWidget {
   }
 
   Valida({String idEmp, String ssEmp}) {
-    //ValidacionScreen(idEmp: idEmp, ssEmp: ssEmp);
-    return null;
+    ValidacionScreen(idEmp: idEmp, ssEmp: ssEmp);
   }
 }

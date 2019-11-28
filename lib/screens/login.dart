@@ -23,7 +23,7 @@ class LoginScreenState extends State<LoginScreen> {
     auth.getUser.then(
       (user) {
         if (user != null) {
-          Navigator.pushReplacementNamed(context, '/valiacion');
+          Navigator.pushReplacementNamed(context, '/valsocio');
         }
       },
     );
@@ -60,7 +60,7 @@ class LoginScreenState extends State<LoginScreen> {
               text: 'LOGIN CON GOOGLE',
               icon: FontAwesomeIcons.google,
               color: Colors.black45,
-              redirection: '/validacion',
+              redirection: '/valsocio',
               loginMethod: auth.googleSignIn,
             ),
           ],
