@@ -9,52 +9,112 @@ class ValSocioForm extends StatefulWidget {
 }
 
 class _ValSocioFormState extends State<ValSocioForm> {
-  String numEmp, ssEmp;
+  //Llaves de la forma y la vista
+  final scaffoldKey = new GlobalKey<ScaffoldState>();
+  final formKey = new GlobalKey<FormState>();
+
+  String _numEmp, _ssEmp;
+
+  _ValSocioFormState();
+
+  // Manejamos el estado de la forma
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  // Siempre hay que eliminar elementos para evitar fugas de memoria
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
+
+  // Manejo de validacion de la forma
+  void _submit() async {
+    final form = formKey.currentState;
+    //final Firestore _db = Firestore.instance;
+
+    if (form.validate()) {
+      //Pasaron las valicaiones basiscas
+      print('vamos por  Empleados/$_numEmp');
+      final snap = await Document<Empleado>(path: 'Empleados/$_numEmp')
+          .getData()
+          .catchError(valFallo);
+      if (snap != null) {
+        print(snap.num_ss);
+        validaSocio(_ssEmp == snap.num_ss.toString());
+      } else {
+        print('No es valido');
+        validaSocio('Falloteles');
+      }
+    }
+  }
+
+  void valFallo() {
+    validaSocio('No Jalo');
+  }
+
+  void validaSocio(_ok) {
+    final snackbar = new SnackBar(
+      content: new Text(
+          "empleado : $_numEmp, seguro social : $_ssEmp  se encontro: $_ok"),
+    );
+    scaffoldKey.currentState.showSnackBar(snackbar);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.only(top: 40.0),
-          child: Column(
-            children: <Widget>[
-              Text('Esto seria parte del UI'),
-              ListTile(
-                title: TextField(
-                  onChanged: (value) {
-                    numEmp = value;
-                  },
-                  decoration: InputDecoration(
-                      icon: Icon(Icons.assignment_ind),
-                      labelText: 'Número de Empleado',
-                      hintText: '25100000',
-                      labelStyle: TextStyle(fontWeight: FontWeight.bold)),
-                ),
+      key: scaffoldKey,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.only(top: 40.0),
+            child: Form(
+              key: formKey,
+              child: Flex(
+                direction: Axis.vertical,
+                children: <Widget>[
+                  Text('Esto seria parte del UI'),
+                  ListTile(
+                    title: TextFormField(
+                      onChanged: (value) {
+                        _numEmp = value;
+                      },
+                      decoration: InputDecoration(
+                          icon: Icon(Icons.assignment_ind),
+                          labelText: 'Número de Empleado',
+                          hintText: 'Utiliza el formato completo',
+                          labelStyle: TextStyle(fontWeight: FontWeight.bold)),
+                      validator: (val) => val.substring(0, 3) != '251'
+                          ? 'No es un numero Empleado valido'
+                          : null,
+                    ),
+                  ),
+                  ListTile(
+                    title: TextFormField(
+                      onChanged: (value) {
+                        _ssEmp = value;
+                      },
+                      decoration: InputDecoration(
+                          icon: Icon(Icons.lock),
+                          labelText: 'Número de Seguro Social',
+                          labelStyle: TextStyle(fontWeight: FontWeight.bold)),
+                      validator: (val) =>
+                          val.length < 6 ? 'No es un numero valido' : null,
+                    ),
+                  ),
+                  ListTile(
+                    title: RaisedButton(
+                      child: Text('Validar'),
+                      onPressed: _submit,
+                    ),
+                  )
+                ],
               ),
-              ListTile(
-                title: TextField(
-                  onChanged: (value) {
-                    ssEmp = value;
-                  },
-                  decoration: InputDecoration(
-                      icon: Icon(Icons.lock),
-                      labelText: 'Número de Seguro Social',
-                      labelStyle: TextStyle(fontWeight: FontWeight.bold)),
-                ),
-              ),
-              ListTile(
-                title: RaisedButton(
-                    child: Text('Validar'),
-                    onPressed: () {
-                      print(numEmp);
-                      print(ssEmp);
-                      validaUser(
-                        numEmp: numEmp,
-                      );
-                    }),
-              )
-            ],
+            ),
           ),
         ),
       ),
@@ -62,16 +122,8 @@ class _ValSocioFormState extends State<ValSocioForm> {
   }
 }
 
-void validaUser({numEmp}) {
-  final emp = numEmp;
-  print('entre a la funcion ' + numEmp);
-
-  FutureBuilder(
-      future: Document<Empleado>(path: 'Empleados/$emp').getData(),
-      builder: (BuildContext context, AsyncSnapshot snap) {
-        Empleado empleado = snap.data;
-        print(empleado.num_ss);
-        print("hola");
-        return;
-      });
+@override
+Widget build(BuildContext context) {
+  // TODO: implement build
+  return null;
 }

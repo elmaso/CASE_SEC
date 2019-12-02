@@ -61,9 +61,9 @@ class MyCustomFormState extends State<MyCustomForm> {
 }
 
 class ValScreen extends StatelessWidget {
-  final String ssNum, idEmp;
+  final String ssNum, idEmp, xx;
 
-  ValScreen({this.idEmp, this.ssNum});
+  ValScreen({this.idEmp, this.ssNum, this.xx});
   @override
   Widget build(BuildContext context) {
     String _idemp = idEmp;

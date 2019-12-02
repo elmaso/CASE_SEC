@@ -1,4 +1,3 @@
-import 'package:des_case_app/screens/perfil.dart';
 import 'package:des_case_app/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +9,7 @@ import '../shared/shared.dart';
 
 class PerfilState with ChangeNotifier {
   int _validado = 0;
-  //String _idemp = '25140306';
+  String _idemp = '25140306';
   String _ss;
   int _intentos = 0;
 
@@ -24,10 +23,10 @@ class PerfilState with ChangeNotifier {
     notifyListeners();
   }
 
-//  set idemp(String newValue) {
-//    _idemp = newValue;
-//    notifyListeners();
-//  }
+  set idemp(String newValue) {
+    _idemp = newValue;
+    notifyListeners();
+  }
 
   set ss(String newValue) {
     _ss = newValue;
@@ -46,6 +45,7 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String _emp, _ssEmp;
     return ChangeNotifierProvider(
       builder: (_) => PerfilState(),
       child: FutureBuilder(
@@ -54,7 +54,52 @@ class ProfileScreen extends StatelessWidget {
           // var state = Provider.of<Empleado>(context);
 
           if (snap.hasError || !snap.hasData) {
-            return AboutScreen();
+            return Scaffold(
+              body: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 40.0),
+                  child: Column(
+                    children: <Widget>[
+                      Text('Esto seria parte del UI'),
+                      ListTile(
+                        title: TextField(
+                          onChanged: (value) {
+                            _emp = value;
+                          },
+                          decoration: InputDecoration(
+                              icon: Icon(Icons.assignment_ind),
+                              labelText: 'Número de Empleado',
+                              hintText: '25100000',
+                              labelStyle:
+                                  TextStyle(fontWeight: FontWeight.bold)),
+                        ),
+                      ),
+                      ListTile(
+                        title: TextField(
+                          onChanged: (value) {
+                            _ssEmp = value;
+                          },
+                          decoration: InputDecoration(
+                              icon: Icon(Icons.lock),
+                              labelText: 'Número de Seguro Social',
+                              labelStyle:
+                                  TextStyle(fontWeight: FontWeight.bold)),
+                        ),
+                      ),
+                      ListTile(
+                        title: RaisedButton(
+                            child: Text('Validar'),
+                            onPressed: () {
+                              print(_emp);
+                              print(_ssEmp);
+                              print("ya mero");
+                            }),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            );
           } else {
             Empleado empleado = snap.data;
             return Scaffold(
