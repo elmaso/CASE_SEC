@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../services/services.dart';
 
@@ -39,21 +41,13 @@ class _ValSocioFormState extends State<ValSocioForm> {
     if (form.validate()) {
       //Pasaron las valicaiones basiscas
       print('vamos por  Empleados/$_numEmp');
-      final snap = await Document<Empleado>(path: 'Empleados/$_numEmp')
-          .getData()
-          .catchError(valFallo);
-      if (snap != null) {
-        print(snap.num_ss);
-        validaSocio(_ssEmp == snap.num_ss.toString());
-      } else {
-        print('No es valido');
-        validaSocio('Falloteles');
-      }
-    }
-  }
 
-  void valFallo() {
-    validaSocio('No Jalo');
+      final snap =
+          await Document<Empleado>(path: 'Empleados/$_numEmp').getData();
+
+      print(snap.num_ss);
+      validaSocio(_ssEmp == snap.num_ss.toString());
+    }
   }
 
   void validaSocio(_ok) {
@@ -66,6 +60,7 @@ class _ValSocioFormState extends State<ValSocioForm> {
 
   @override
   Widget build(BuildContext context) {
+    FirebaseUser user = Provider.of<FirebaseUser>(context);
     return Scaffold(
       key: scaffoldKey,
       body: SafeArea(
@@ -77,7 +72,18 @@ class _ValSocioFormState extends State<ValSocioForm> {
               child: Flex(
                 direction: Axis.vertical,
                 children: <Widget>[
-                  Text('Esto seria parte del UI'),
+                  Container(
+                    width: 100,
+                    height: 100,
+                    margin: EdgeInsets.only(top: 50),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                        image: NetworkImage(user.photoUrl),
+                      ),
+                    ),
+                  ),
+                  Text(user.displayName),
                   ListTile(
                     title: TextFormField(
                       onChanged: (value) {

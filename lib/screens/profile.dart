@@ -45,7 +45,7 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String _emp, _ssEmp;
+    String _emp, ssEmp;
     return ChangeNotifierProvider(
       builder: (_) => PerfilState(),
       child: FutureBuilder(
@@ -77,7 +77,7 @@ class ProfileScreen extends StatelessWidget {
                       ListTile(
                         title: TextField(
                           onChanged: (value) {
-                            _ssEmp = value;
+                            ssEmp = value;
                           },
                           decoration: InputDecoration(
                               icon: Icon(Icons.lock),
@@ -91,7 +91,7 @@ class ProfileScreen extends StatelessWidget {
                             child: Text('Validar'),
                             onPressed: () {
                               print(_emp);
-                              print(_ssEmp);
+                              print(ssEmp);
                               print("ya mero");
                             }),
                       )
