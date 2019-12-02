@@ -83,17 +83,19 @@ class _ValSocioFormState extends State<ValSocioForm> {
                       ),
                     ),
                   ),
-                  Text(user.displayName),
+                  Text(user.email),
                   ListTile(
                     title: TextFormField(
                       onChanged: (value) {
                         _numEmp = value;
                       },
                       decoration: InputDecoration(
-                          icon: Icon(Icons.assignment_ind),
+                          prefixIcon: Icon(Icons.assignment_ind),
                           labelText: 'Número de Empleado',
                           hintText: 'Utiliza el formato completo',
+                          helperText: 'Recuerda utilizar el 251',
                           labelStyle: TextStyle(fontWeight: FontWeight.bold)),
+                      keyboardType: TextInputType.number,
                       validator: (val) => val.substring(0, 3) != '251'
                           ? 'No es un numero Empleado valido'
                           : null,
@@ -105,9 +107,10 @@ class _ValSocioFormState extends State<ValSocioForm> {
                         _ssEmp = value;
                       },
                       decoration: InputDecoration(
-                          icon: Icon(Icons.lock),
+                          prefixIcon: Icon(Icons.lock),
                           labelText: 'Número de Seguro Social',
                           labelStyle: TextStyle(fontWeight: FontWeight.bold)),
+                      keyboardType: TextInputType.number,
                       validator: (val) =>
                           val.length < 6 ? 'No es un numero valido' : null,
                     ),
@@ -126,10 +129,4 @@ class _ValSocioFormState extends State<ValSocioForm> {
       ),
     );
   }
-}
-
-@override
-Widget build(BuildContext context) {
-  // TODO: implement build
-  return null;
 }
