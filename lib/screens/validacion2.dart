@@ -31,7 +31,7 @@ class ValidacionState with ChangeNotifier {
     _ssEmp = newValue;
     notifyListeners();
   }
-  //void valida()
+//void valida()
 }
 
 abstract class StringValidator {

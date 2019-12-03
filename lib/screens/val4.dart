@@ -16,6 +16,8 @@ class _ValSocioFormState extends State<ValSocioForm> {
   final formKey = new GlobalKey<FormState>();
 
   String _numEmp, _ssEmp;
+  int intentos;
+  String okok;
 
   _ValSocioFormState();
 
@@ -41,22 +43,50 @@ class _ValSocioFormState extends State<ValSocioForm> {
     if (form.validate()) {
       //Pasaron las valicaiones basiscas
       print('vamos por  Empleados/$_numEmp');
-
       final snap =
-          await Document<Empleado>(path: 'Empleados/$_numEmp').getData();
-
+      await Document<Empleado>(path: 'Empleados/$_numEmp').getData();
       print(snap.num_ss);
-      validaSocio(_ssEmp == snap.num_ss.toString());
+
+        validaSocio(_ssEmp == snap.num_ss.toString());
+    try {
+     if (_numEmp == snap.idEmp.toString()) {}
+    } catch (e) {
+      new SnackBar(
+        content: new Text(
+            "empleado : $_numEmp, seguro social : $_ssEmp  se encontro: incorrecto "),
+        duration: Duration(seconds: 5),
+      );
+      }
+
+      }
     }
-  }
 
   void validaSocio(_ok) {
     final snackbar = new SnackBar(
       content: new Text(
           "empleado : $_numEmp, seguro social : $_ssEmp  se encontro: $_ok"),
+      duration: Duration(seconds: 5),
     );
     scaffoldKey.currentState.showSnackBar(snackbar);
   }
+
+  void validaEmpleado(_pro) {
+    final snackbar = new SnackBar(
+      content: new Text(
+          "empleado : $_numEmp, seguro social : $_ssEmp  se encontro: $_pro"),
+      duration: Duration(seconds: 5),
+    );
+    scaffoldKey.currentState.showSnackBar(snackbar);
+  }
+  //void validaEmpleado(_ook) {
+    //final snackbarEmpleado = new SnackBar(
+      //content: new Text(
+        //  "empleado : $_numEmp, seguro social : $_ssEmp  se encontro: $_ook"),
+      //duration: Duration(seconds: 5),
+    //);
+    //scaffoldKey.currentState.showSnackBar(snackbarEmpleado);
+  //}
+
 
   @override
   Widget build(BuildContext context) {
@@ -112,7 +142,7 @@ class _ValSocioFormState extends State<ValSocioForm> {
                           labelStyle: TextStyle(fontWeight: FontWeight.bold)),
                       keyboardType: TextInputType.number,
                       validator: (val) =>
-                          val.length < 6 ? 'No es un numero valido' : null,
+                      val.length < 6 ? 'No es un numero valido' : null,
                     ),
                   ),
                   ListTile(
