@@ -42,6 +42,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         StreamProvider<Socio>.value(value: Global.socioRef.documentStream),
+         //StreamProvider<Credito>.value(value: Global.socioRef.documentStream),
         StreamProvider<FirebaseUser>.value(value: AuthService().user),
       ],
       child: MaterialApp(
@@ -58,6 +59,7 @@ class MyApp extends StatelessWidget {
           //'/prestamos': (context) => PrestamosScreen(),
           //'/solicitud': (context) => SolicitudScreen(),
           //',/detalle': (context) => ValSocioForm(),
+        
           '/perfil': (context) => ProfileScreen(),
           '/validacion': (context) => ValScreen(
                 idEmp: '251403',

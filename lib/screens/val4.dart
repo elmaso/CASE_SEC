@@ -112,7 +112,7 @@ class _ValSocioFormState extends State<ValSocioForm> {
                           labelStyle: TextStyle(fontWeight: FontWeight.bold)),
                       keyboardType: TextInputType.number,
                       validator: (val) =>
-                          val.length < 6 ? 'No es un numero valido' : null,
+                          val.length < 5 ? 'No es un numero valido' : null,
                     ),
                   ),
                   ListTile(
