@@ -29,7 +29,7 @@ class PrestamosScreenState extends State<PrestamosScreen> {
             ),
             SizedBox(height: 3.0),
             Text(
-              'Prestamis',
+              'Prestamos',
               style: Theme.of(context).textTheme.headline,
               textAlign: TextAlign.center,
             ),

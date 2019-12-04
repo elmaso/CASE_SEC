@@ -1,5 +1,3 @@
-import 'package:des_case_app/screens/login.dart';
-
 /// Entrada del app y controla las rutas separando [sreens] diseno de
 /// [services] logica o bases de datos
 /// La primera vez que entras te muestra login
@@ -7,13 +5,14 @@ import 'package:des_case_app/screens/login.dart';
 import 'package:des_case_app/screens/profile.dart';
 import 'package:des_case_app/screens/val3.dart';
 import 'package:des_case_app/screens/val4.dart';
+import 'package:des_case_app/screens/val5.dart';
 import 'package:des_case_app/screens/validacion2.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
+import 'screens/screens.dart';
 import 'services/services.dart';
 
 void main() => runApp(MyApp());
@@ -55,15 +54,18 @@ class MyApp extends StatelessWidget {
         // Named Routes
         routes: {
           '/': (context) => LoginScreen(),
+          //'/validacion': (context) => ValidacionUsuario(),
           '/validacion2': (context) => ValidacionScreen(),
-          //'/prestamos': (context) => PrestamosScreen(),
+          '/prestamos': (context) => PrestamosScreen(),
           //'/solicitud': (context) => SolicitudScreen(),
+          //',/detalle': (context) => DetalleScreenn(),
           //',/detalle': (context) => ValSocioForm(),
         
           '/perfil': (context) => ProfileScreen(),
+          '/validacion': (context) => ValidacionScreen(),
           '/validacion': (context) => ValScreen(
-                idEmp: '251403',
-              ),
+            idEmp: '251403',
+          ),
           '/valsocio': (context) => ValSocioForm(),
         },
 
