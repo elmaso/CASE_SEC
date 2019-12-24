@@ -12,19 +12,21 @@ class Empleado {
   String num_ss;
 
   Empleado(
-      {this.materno,
-      this.nivel,
+      {this.idEmp,
+        this.nivel,
       this.nombres,
-      this.idEmp,
+
       this.paterno,
+      this.materno,
       this.num_ss});
 
   factory Empleado.fromMap(Map data) {
     return Empleado(
+      idEmp: data['id'] ?? '',
       materno: data['materno'] ?? '',
       nivel: data['nivel'] ?? '',
       nombres: data['nombres'] ?? '',
-      idEmp: data['id'] ?? '',
+
       paterno: data['paterno'] ?? '',
       num_ss: data['num_ss'] ?? '',
     );
