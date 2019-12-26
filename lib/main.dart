@@ -67,6 +67,7 @@ class MyApp extends StatelessWidget {
             idEmp: '251403',
           ),
           '/valsocio': (context) => ValSocioForm(),
+          '/confirmaciones': (context) => Confirmacion(),
         },
 
         // Theme
