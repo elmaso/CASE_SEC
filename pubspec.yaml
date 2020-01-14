@@ -33,6 +33,7 @@ dependencies:
   provider: ^3.1.0
   rxdart: ^0.22.4
   flutter_form_builder: ^3.6.1
+  google_fonts: ^0.1.1
 
 
 dev_dependencies:

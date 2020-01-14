@@ -1,24 +1,31 @@
-import 'package:des_case_app/services/globals.dart';
-import 'package:des_case_app/services/services.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:des_case_app/constants/images.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-
 import '../services/services.dart';
+import 'package:des_case_app/services/services.dart';
+import 'package:des_case_app/services/globals.dart';
+
+
 
 class ValSocioForm extends StatefulWidget {
+
   final Empleado empleado;
   ValSocioForm({this.empleado});
   @override
   _ValSocioFormState createState() => _ValSocioFormState();
+
 }
 
 class _ValSocioFormState extends State<ValSocioForm> {
   //Llaves de la forma y la vista
   final scaffoldKey = new GlobalKey<ScaffoldState>();
   final formKey = new GlobalKey<FormState>();
+
+
 
   String _numEmp, _ssEmp;
   int intentos;
@@ -37,11 +44,13 @@ class _ValSocioFormState extends State<ValSocioForm> {
 
   _ValSocioFormState();
 
+
   // Manejamos el estado de la forma
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+
   }
 
   // Siempre hay que eliminar elementos para evitar fugas de memoria
@@ -59,8 +68,8 @@ class _ValSocioFormState extends State<ValSocioForm> {
     if (form.validate()) {
       //Pasarón las valicaiones basiscas
       print('vamos por  Empleados/$_numEmp');
-      final snap =
-          await Document<Empleado>(path: 'Empleados/$_numEmp').getData();
+      final snap = await Document<Empleado>(path: 'Empleados/$_numEmp')
+          .getData();
       FirebaseUser user = Provider.of<FirebaseUser>(context);
       print(snap.num_ss);
       print(snap.idEmp);
@@ -73,26 +82,27 @@ class _ValSocioFormState extends State<ValSocioForm> {
       varnum_ss = snap.num_ss.toString();
       validaSocio(_ssEmp == snap.num_ss.toString());
       if (_ssEmp == snap.num_ss.toString()) {
-        // Navigator.pushReplacementNamed(context, '/confirmaciones');
-        _updateUserReport();
+        Navigator.pushReplacementNamed(context, '/confirmaciones');
+        getUserByEmail();
       }
     }
-  }
+    }
 
-  Future<void> _updateUserReport() {
+ 
+
+  Future<void> _updateUserReport(Empleado empleado) {
     return Global.socioRef.upsert(
       ({
-        'validado': 1,
-        'empleado': {
-          'SocioCase': varidEmp,
-          'nivel': varnivel,
-          'paterno': varpaterno,
-          'matermno': varmaterno,
-          'nombres': varnombres
+        'id': varidEmp,
+        'SocioCase': {
+          '${empleado.num_ss}': FieldValue.arrayUnion([empleado.idEmp])
         }
       }),
     );
   }
+
+
+
 
   void validaSocio(_ok) {
     final snackbar = new SnackBar(
@@ -101,9 +111,10 @@ class _ValSocioFormState extends State<ValSocioForm> {
       duration: Duration(seconds: 3),
     );
     scaffoldKey.currentState.showSnackBar(snackbar);
+
   }
 
-  @override
+   @override
   Widget build(BuildContext context) {
     FirebaseUser user = Provider.of<FirebaseUser>(context);
     uiduid = user.uid;
@@ -126,6 +137,7 @@ class _ValSocioFormState extends State<ValSocioForm> {
                       shape: BoxShape.circle,
                       image: DecorationImage(
                         image: NetworkImage(user.photoUrl),
+
                       ),
                     ),
                   ),
@@ -158,7 +170,7 @@ class _ValSocioFormState extends State<ValSocioForm> {
                           labelStyle: TextStyle(fontWeight: FontWeight.bold)),
                       keyboardType: TextInputType.number,
                       validator: (val) =>
-                          val.length < 6 ? 'No es un numero valido' : null,
+                      val.length < 6 ? 'No es un numero valido' : null,
                     ),
                   ),
                   ListTile(
@@ -176,12 +188,14 @@ class _ValSocioFormState extends State<ValSocioForm> {
     );
   }
 }
-
 class Confirmacion extends StatefulWidget {
   createState() => ConfirmacionState();
 }
 
 class ConfirmacionState extends State<Confirmacion> {
+
+
+
   @override
   Widget build(BuildContext context) {
     FirebaseUser user = Provider.of<FirebaseUser>(context);
@@ -195,8 +209,8 @@ class ConfirmacionState extends State<Confirmacion> {
             icon: Icon(FontAwesomeIcons.home),
             onPressed: () async {
               await auth.signOut();
-              Navigator.of(context)
-                  .pushNamedAndRemoveUntil('/', (route) => false);
+              Navigator.of(context).pushNamedAndRemoveUntil(
+                  '/', (route) => false);
             }),
       ),
       body: Container(
@@ -209,26 +223,35 @@ class ConfirmacionState extends State<Confirmacion> {
             SizedBox(height: 3.0),
             Text(
               'INFORMACION VALIDADA CORRECTAMENTE',
-              style: Theme.of(context).textTheme.headline,
+              style: Theme
+                  .of(context)
+                  .textTheme
+                  .headline,
               textAlign: TextAlign.center,
             ),
-            Text(
-              'Numero de Empleado: ',
-              style: Theme.of(context).textTheme.headline,
+            Text('Numero de Empleado: ' ,
+              style: Theme
+                  .of(context)
+                  .textTheme
+                  .headline,
               textAlign: TextAlign.center,
             ),
-            Text(
-              user.uid,
-              style: Theme.of(context).textTheme.headline,
+            Text(user.uid,
+              style: Theme
+                  .of(context)
+                  .textTheme
+                  .headline,
               textAlign: TextAlign.center,
             ),
             RaisedButton(
               child: Text('Confirmar'),
-              onPressed: () {},
-            ),
-          ],
+              onPressed: (){},
+                ),
+    ],
         ),
-      ),
+    ),
     );
-  }
-}
+  }}
+
+
+
