@@ -5,9 +5,10 @@
 import 'package:des_case_app/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
+import 'package:provider/provider.dart';
 import '../constants/constants.dart';
 import '../shared/shared.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginScreen extends StatefulWidget {
   createState() => LoginScreenState();
@@ -28,6 +29,7 @@ class LoginScreenState extends State<LoginScreen> {
       },
     );
   }
+
 
   //TODO Mejorar la image y diseno general, cambiando la fotos por elementos nativos
   @override

@@ -1,5 +1,4 @@
 import 'package:des_case_app/services/auth.dart';
-import 'package:des_case_app/services/models.dart';
 import 'package:flutter/material.dart';
 import 'package:des_case_app/constants/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -7,20 +6,24 @@ import 'package:flutter/cupertino.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:des_case_app/services/services.dart';
+import '../services/services.dart';
 
 
 
-class PrestamosScreen extends StatefulWidget {
-  createState() => PrestamosScreenState();
+class PrestamosScreens extends StatefulWidget {
+  createState() => PrestamosScreensState();
 }
 
-class PrestamosScreenState extends State<PrestamosScreen> {
-  @override
+
+class PrestamosScreensState extends State<PrestamosScreens> {
+  final scaffoldKey = new GlobalKey<ScaffoldState>();
+  final formKey = new GlobalKey<FormState>();
+
+
+      @override
   Widget build(BuildContext context) {
     FirebaseUser user = Provider.of<FirebaseUser>(context);
     final AuthService auth = AuthService();
-    final scaffoldKey = new GlobalKey<ScaffoldState>();
-    final formKey = new GlobalKey<FormState>();
     return Scaffold(
       appBar: AppBar(
         title: Text((user.email)),
@@ -32,8 +35,8 @@ class PrestamosScreenState extends State<PrestamosScreen> {
                   '/', (route) => false);
             }),
       ),
+
       body: Container(
-        padding: EdgeInsets.all(30),
         decoration: BoxDecoration(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -41,11 +44,7 @@ class PrestamosScreenState extends State<PrestamosScreen> {
           children: [
             Column(
               children: <Widget>[
-                Image.asset(seciniciodos),
-                SizedBox(
-                  height: 50.0,
-                  width: 50.0,
-                ),
+                Text('Bienvenido + varnombres + varpaterno + varmaterno '),
               ],
             ),
             SizedBox(height: 3.0),
@@ -71,3 +70,4 @@ class PrestamosScreenState extends State<PrestamosScreen> {
     );
   }
 }
+

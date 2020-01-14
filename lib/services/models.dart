@@ -10,6 +10,7 @@ class Empleado {
   String idEmp;
   String paterno;
   String num_ss;
+  String prestamos;
 
   Empleado(
       {this.idEmp,
@@ -18,7 +19,8 @@ class Empleado {
 
       this.paterno,
       this.materno,
-      this.num_ss});
+        this.prestamos,
+        this.num_ss,});
 
   factory Empleado.fromMap(Map data) {
     return Empleado(
@@ -28,6 +30,7 @@ class Empleado {
       nombres: data['nombres'] ?? '',
 
       paterno: data['paterno'] ?? '',
+      prestamos: data['prestamo'] ?? '',
       num_ss: data['num_ss'] ?? '',
     );
   }
@@ -36,14 +39,36 @@ class Empleado {
 class Socio {
   String uid;
   dynamic ultimaVisita;
+  String materno;
+  String nivel;
+  String nombres;
+  String idEmp;
+  String paterno;
+  String num_ss;
+  dynamic prestamo;
   List<Prestamo> socio;
 
-  Socio({this.uid, this.ultimaVisita, this.socio});
+  Socio({this.uid, this.ultimaVisita, this.socio, this.idEmp,
+    this.nivel,
+    this.nombres,
+
+    this.paterno,
+    this.materno,
+    this.num_ss,
+  this.prestamo});
 
   factory Socio.fromMap(Map data) {
     return Socio(
       uid: data['uid'],
       ultimaVisita: data['ultimavisita'],
+      idEmp: data['id'] ?? '',
+      materno: data['materno'] ?? '',
+      nivel: data['nivel'] ?? '',
+      nombres: data['nombres'] ?? '',
+
+      paterno: data['paterno'] ?? '',
+      num_ss: data['num_ss'] ?? '',
+      prestamo: data['prestamo'] ?? '',
     );
   }
 }
